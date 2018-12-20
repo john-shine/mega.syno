@@ -7,10 +7,12 @@ Make possible to use mega.nz`s megasync on Synology with Docker
 
 then connect vnc desktop with vnc client at port 5901
 
-## screenshots
+## Screenshots
 <img src="https://raw.githubusercontent.com/john-shine/mega.syno/master/screenshots/1.png" alt="screenshot1" width="300" />
-
 <img src="https://raw.githubusercontent.com/john-shine/mega.syno/master/screenshots/2.png" alt="screenshot2" width="300" />
+
+## Synology tutorial
+updating...
 
 ## History
 ### v1.1
