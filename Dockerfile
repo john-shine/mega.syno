@@ -35,6 +35,7 @@ USER ${USER}
 
 RUN mkdir -p ${HOME}/.vnc/
 ADD xstartup ${HOME}/.vnc/xstartup
+ADD dist/tray /usr/local/bin/
 RUN touch ${HOME}/.vnc/passwd ${HOME}/.Xauthority
  
 RUN sudo chown ${USER}:'root' ${HOME}/.vnc/xstartup && \
@@ -43,7 +44,8 @@ RUN sudo chown ${USER}:'root' ${HOME}/.vnc/xstartup && \
 # Always run the WM last!
 RUN /bin/echo -e "export DISPLAY=${DISPLAY}"  >> ${HOME}/.vnc/xstartup
 RUN /bin/echo -e "[ -r ${HOME}/.Xresources ] && xrdb ${HOME}/.Xresources\nxsetroot -solid grey"  >> ${HOME}/.vnc/xstartup
-RUN /bin/echo -e "megasync"  >> ${HOME}/.vnc/xstartup
+RUN /bin/echo -e "/usr/local/bin/tray &"  >> ${HOME}/.vnc/xstartup
+RUN /bin/echo -e "/usr/bin/megasync &"  >> ${HOME}/.vnc/xstartup
 RUN /bin/echo -e "tailf /dev/null"  >> ${HOME}/.vnc/xstartup
 
 RUN /bin/echo -e 'alias ll="ls -last"' >> ${HOME}/.bashrc
