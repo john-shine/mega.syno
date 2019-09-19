@@ -12,9 +12,12 @@ ENV HOME=/home/${USER}
 ARG vnc_password=""
 EXPOSE 5901
 
+ADD rpms/LibRaw-0.14.8-5.el7.20120830git98d925.x86_64.rpm /tmp/LibRaw-0.14.8-5.el7.20120830git98d925.x86_64.rpm
+
 RUN yum check-update -y ; \
     yum install -y --setopt=tsflags=nodocs tigervnc-server xorg-x11-server-utils xorg-x11-server-Xvfb xorg-x11-fonts-* motif xterm && \
     yum install -y --setopt=tsflags=nodocs sudo which wget && \
+    yum localinstall -y --setopt=tsflags=nodocs --nogpgcheck /tmp/LibRaw-0.14.8-5.el7.20120830git98d925.x86_64.rpm && \
     wget --no-check-certificate https://mega.nz/linux/MEGAsync/CentOS_7/x86_64/megasync-CentOS_7.x86_64.rpm -O /tmp/megasync-CentOS_7.x86_64.rpm && \
     yum localinstall -y --setopt=tsflags=nodocs --nogpgcheck /tmp/megasync-CentOS_7.x86_64.rpm && \
     /bin/echo -e "\n${USER}        ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers && \
