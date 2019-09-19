@@ -15,6 +15,10 @@ then connect vnc desktop with vnc client at port 5901
 updating...
 
 ## History
+
+## v1.2
++  Write a Qt program to simulate tray
+
 ### v1.1
 + Thanks for [salvq](https://github.com/salvq)\`s information. To enable one way sync, set sync folder read only to Container as following:
   `sudo docker run -d -p 5901:5901 johnshine/mega.syno:latest-v /path/to/host/sync/folder:/megaclient-folders/:ro`
