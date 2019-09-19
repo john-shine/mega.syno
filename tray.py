@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 import sys
+import resources
+import traceback
 import subprocess
 from PyQt5 import QtGui
 from PyQt5.QtCore import Qt, QRect
@@ -24,7 +26,7 @@ class Tray(QMainWindow):
         
         self.button = QPushButton('', self)
         self.button.setGeometry(QRect(width - self.icon_size - 1, 0, self.icon_size, self.icon_size))
-        ico = QtGui.QPixmap('mega.ico')
+        ico = QtGui.QPixmap(':/mega.ico')
         self.button.setIcon(QtGui.QIcon(ico))
         self.button.clicked.connect(self.launch_mega)
         
@@ -34,7 +36,10 @@ class Tray(QMainWindow):
         self.show()
 
     def launch_mega(self):
-        subprocess.Popen(['/usr/bin/megasync', '&'])
+        try:
+            subprocess.Popen(['/usr/bin/megasync', '&'])
+        except Exception as e:
+            traceback.print_exc()
 
 
 if __name__ == '__main__':

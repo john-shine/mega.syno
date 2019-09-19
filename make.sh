@@ -13,5 +13,8 @@ if [ -z ${version} ] ; then
    exit
 fi
 
+pyinstaller -F tray.py
+
 echo 'starting to build image'
 sudo docker build --rm -t johnshine/mega.syno:${version} .
+
