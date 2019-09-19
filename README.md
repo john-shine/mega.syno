@@ -17,7 +17,8 @@ updating...
 ## History
 
 ## v1.2
-+  Write a Qt program to simulate tray
++ Write a Qt program to simulate tray
++ update megasync to 4.2.5
 
 ### v1.1
 + Thanks for [salvq](https://github.com/salvq)\`s information. To enable one way sync, set sync folder read only to Container as following:
