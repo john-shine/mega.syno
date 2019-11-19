@@ -1,6 +1,6 @@
 #!/bin/sh
 
-version=$(cat $(pwd "$0")/VERSION)
+version=$(cat "$(pwd \"$0\")/VERSION")
 
 while getopts 'v:' flag; do
   case "${flag}" in
@@ -13,5 +13,8 @@ if [ -z ${version} ] ; then
    exit
 fi
 
+pyinstaller -F tray.py
+
 echo 'starting to build image'
 sudo docker build --rm -t johnshine/mega.syno:${version} .
+
