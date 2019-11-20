@@ -1,0 +1,14 @@
+{
+    ".url": {
+        "SYNO.SDS.MEGAsync.client": {
+            "type": "url",
+            "allUsers": false,
+            "title": "MEGAsync",
+            "desc": "MEGAsync client for Synology",
+            "icon": "images/icon_{0}.png",
+            "protocol": "http",
+            "url": "/",
+            "port": "7900"
+        }
+    }
+}
