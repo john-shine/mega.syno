@@ -3,7 +3,7 @@ Make possible to use mega.nz`s megasync on Synology with Docker
 
 `sudo docker pull johnshine/mega.syno:latest`
 
-`sudo docker run -d -p 5901:5901 johnshine/mega.syno:latest`
+`sudo docker run -d -p 5901:5901 -p 6080:6080 -v /path/to/sync/folder:/home/mega/MEGA johnshine/mega.syno:latest`
 
 then connect vnc desktop with vnc client at port 5901
 
