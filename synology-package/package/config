@@ -8,7 +8,7 @@
             "icon": "images/icon_{0}.png",
             "protocol": "http",
             "url": "/",
-            "port": "7900"
+            "port": "8900"
         }
     }
 }
