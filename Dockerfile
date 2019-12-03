@@ -16,7 +16,7 @@ RUN yum check-update -y ; \
     yum install -y --setopt=tsflags=nodocs tigervnc-server epel-release && \
     yum install -y --setopt=tsflags=nodocs sudo git fluxbox && \
     yum clean all && rm -rf /var/cache/yum/*
-RUN curl -k https://github.com/novnc/noVNC/archive/v1.1.0.tar.gz -o /tmp/noVNC.tar.gz
+RUN curl -k -L https://github.com/novnc/noVNC/archive/v1.1.0.tar.gz -o /tmp/noVNC.tar.gz
 RUN tar -zxvf /tmp/noVNC.tar.gz -C /opt
 RUN git clone https://github.com/novnc/websockify /opt/noVNC-1.1.0/utils/websockify
 RUN mv /opt/noVNC-1.1.0/vnc_lite.html /opt/noVNC-1.1.0/index.html && \
@@ -25,9 +25,9 @@ RUN rm -f /tmp/noVNC.tar.gz
 
 RUN /bin/echo -e "\n${USER}        ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
 
-RUN curl -k https://raw.githubusercontent.com/john-shine/mega.syno/master/rpms/LibRaw-0.14.8-5.el7.20120830git98d925.x86_64.rpm -o /tmp/LibRaw-0.14.8-5.x86_64.rpm
-RUN curl -k https://mega.nz/linux/MEGAsync/CentOS_7/x86_64/megasync-CentOS_7.x86_64.rpm -o /tmp/megasync-CentOS_7.x86_64.rpm && \
-RUN yum localinstall -y --setopt=tsflags=nodocs --nogpgcheck /tmp/LibRaw-0.14.8-5.x86_64.rpm /tmp/megasync-CentOS_7.x86_64.rpm && \
+RUN curl -k -L https://raw.githubusercontent.com/john-shine/mega.syno/master/rpms/LibRaw-0.14.8-5.el7.20120830git98d925.x86_64.rpm -o /tmp/LibRaw-0.14.8-5.x86_64.rpm && \
+    curl -k -L https://mega.nz/linux/MEGAsync/CentOS_7/x86_64/megasync-CentOS_7.x86_64.rpm -o /tmp/megasync-CentOS_7.x86_64.rpm && \
+    yum localinstall -y --setopt=tsflags=nodocs --nogpgcheck /tmp/LibRaw-0.14.8-5.x86_64.rpm /tmp/megasync-CentOS_7.x86_64.rpm && \
     rm -rf /tmp/megasync-CentOS_7.x86_64.rpm /tmp/LibRaw-0.14.8-5.x86_64.rpm
 
 RUN /bin/dbus-uuidgen --ensure
