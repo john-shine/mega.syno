@@ -1,0 +1,6 @@
+#!/bin/sh
+
+rm -f "/tmp/QTbgsVrmwePlule_id"
+rm -rf "${SYNOPKG_PKGDEST_VOL}/MEGAsync"
+
+exit 0

@@ -3,44 +3,68 @@
 case $1 in
     start)
         ### Start this package.
-        echo 'try to run docker mega container.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
-        container_id=$(docker run -d -p 8900:6080 -v "${SYNOPKG_PKGDEST_VOL}/MEGAsync":"/home/mega/MEGA/" johnshine/mega.syno:latest)
+        echo 'try to run docker mega container.' | tee "${SYNOPKG_PKGDEST}/package/logs/all.log" "${SYNOPKG_PKGDEST}/package/logs/start.log"
+        is_exist=0
+        if [ -f "/tmp/QTbgsVrmwePlule_id" ]; then
+            echo 'old container id storge file is exist.' | tee "${SYNOPKG_PKGDEST}/package/logs/all.log" "${SYNOPKG_PKGDEST}/package/logs/start.log"
+            container_id=$(cat "/tmp/QTbgsVrmwePlule_id")
+            if [ ! -z $container_id ]; then
+                docker ps --no-trunc -q | grep $container_id 
+                if [ $? -eq 0 ]; then
+                    is_exist=1
+                    echo 'docker container is already exist.' | tee "${SYNOPKG_PKGDEST}/package/logs/all.log" "${SYNOPKG_PKGDEST}/package/logs/start.log"
+                else
+                    echo 'docker container is not exist.' | tee "${SYNOPKG_PKGDEST}/package/logs/all.log" "${SYNOPKG_PKGDEST}/package/logs/start.log"
+                fi
+            else
+                echo 'old container id is empty.' | tee "${SYNOPKG_PKGDEST}/package/logs/all.log" "${SYNOPKG_PKGDEST}/package/logs/start.log"
+            fi
+        fi
+
+        if [ $is_exist -eq 0 ]; then
+            mkdir -p "${SYNOPKG_PKGDEST_VOL}/MEGAsync"
+            chmod 777 "${SYNOPKG_PKGDEST_VOL}/MEGAsync"
+            container_id=$(docker run -d -v "${SYNOPKG_PKGDEST_VOL}/MEGAsync":"/home/mega/MEGA" -p 6900:6080 johnshine/mega.syno:latest 2>&1 | tee "${SYNOPKG_PKGDEST}/package/logs/all.log" "${SYNOPKG_PKGDEST}/package/logs/start.log")
+        else
+            docker start $container_id 2>&1 | tee "${SYNOPKG_PKGDEST}/package/logs/all.log" "${SYNOPKG_PKGDEST}/package/logs/start.log"
+        fi
+
         ret=$?
         if [ $ret -eq 0 ]; then
-            echo $container_id > "${SYNOPKG_PKGDEST}/package/logs/cid"
-            echo "start with ${container_id}" >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
+            echo $container_id > "/tmp/QTbgsVrmwePlule_id"
+            echo "start with ${container_id}" | tee "${SYNOPKG_PKGDEST}/package/logs/all.log" "${SYNOPKG_PKGDEST}/package/logs/start.log"
         fi
-        echo "return $ret" >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
+        echo "return $ret" | tee "${SYNOPKG_PKGDEST}/package/logs/all.log" "${SYNOPKG_PKGDEST}/package/logs/start.log"
         exit $ret
     ;;
     stop)
         ### Stop this package.
-        echo 'try to stop mega container.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
-        container_id=$(cat "${SYNOPKG_PKGDEST}/package/logs/cid")
+        echo 'try to stop mega container.' | tee "${SYNOPKG_PKGDEST}/package/logs/all.log" "${SYNOPKG_PKGDEST}/package/logs/stop.log"
+        container_id=$(cat "/tmp/QTbgsVrmwePlule_id")
         if [ -z $container_id ]; then
-            echo 'fail to get package container id.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
+            echo 'fail to get package container id.' | tee "${SYNOPKG_PKGDEST}/package/logs/all.log" "${SYNOPKG_PKGDEST}/package/logs/stop.log"
             exit 1
         fi
-        docker stop $container_id >> "${SYNOPKG_PKGDEST}/package/logs/output.log" 2>&1
+        docker stop $container_id 2>&1 | tee "${SYNOPKG_PKGDEST}/package/logs/all.log" "${SYNOPKG_PKGDEST}/package/logs/stop.log"
         exit $?
     ;;
     log)
-        echo "${SYNOPKG_PKGDEST}/package/logs/output.log"
+        echo "${SYNOPKG_PKGDEST}/package/logs/all.log"
     ;;
     status)
         ### Check package alive.
-        echo 'get status of mega container.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
-        container_id=$(cat "${SYNOPKG_PKGDEST}/package/logs/cid")
+        echo 'get status of mega container.' | tee "${SYNOPKG_PKGDEST}/package/logs/all.log" "${SYNOPKG_PKGDEST}/package/logs/status.log"
+        container_id=$(cat "/tmp/QTbgsVrmwePlule_id")
         if [ -z $container_id ]; then
-            echo 'fail to get package container id.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
+            echo 'fail to get package container id.' | tee "${SYNOPKG_PKGDEST}/package/logs/all.log" "${SYNOPKG_PKGDEST}/package/logs/status.log"
             exit 1
         fi
-        docker ps --no-trunc -q | grep $container_id >> "${SYNOPKG_PKGDEST}/package/logs/output.log" 2>&1
+        docker ps --no-trunc -q | grep $container_id
         ret=$?
         if [ $ret -ne 0 ]; then
-            echo 'mega container is not running' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
+            echo 'mega container is not running' | tee "${SYNOPKG_PKGDEST}/package/logs/all.log" "${SYNOPKG_PKGDEST}/package/logs/status.log"
         else
-            echo 'mega container is running' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
+            echo 'mega container is running' | tee "${SYNOPKG_PKGDEST}/package/logs/all.log" "${SYNOPKG_PKGDEST}/package/logs/status.log"
         fi
         exit $ret
     ;;

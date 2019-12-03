@@ -1,6 +1,6 @@
 #!/bin/sh
 
 mkdir -p "${SYNOPKG_PKGDEST}/package/logs/"
-echo 'start pull docker into DSM.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
-docker pull johnshine/mega.syno:latest >> "${SYNOPKG_PKGDEST}/package/logs/output.log" 2>&1
+echo 'start pull docker into DSM.' | tee "${SYNOPKG_PKGDEST}/package/logs/all.log" tee "${SYNOPKG_PKGDEST}/package/logs/postinst.log"
+docker pull johnshine/mega.syno:latest 2>&1 | tee "${SYNOPKG_PKGDEST}/package/logs/all.log" "${SYNOPKG_PKGDEST}/package/logs/postinst.log"
 exit $?
