@@ -24,7 +24,7 @@ case $1 in
         if [ $is_exist -eq 0 ]; then
             mkdir -p "${SYNOPKG_PKGDEST_VOL}/MEGAsync"
             chmod 777 "${SYNOPKG_PKGDEST_VOL}/MEGAsync"
-            container_id=$(docker run -d -v "${SYNOPKG_PKGDEST_VOL}/MEGAsync":"/home/mega/MEGA" -p 6900:6080 johnshine/mega.syno:latest 2>&1 | tee "${SYNOPKG_PKGDEST}/package/logs/all.log" "${SYNOPKG_PKGDEST}/package/logs/start.log")
+            container_id=$(docker run -d -v "${SYNOPKG_PKGDEST_VOL}/MEGAsync":"/home/mega/MEGA" -p 8900:6080 johnshine/mega.syno:latest 2>&1 | tee "${SYNOPKG_PKGDEST}/package/logs/all.log" "${SYNOPKG_PKGDEST}/package/logs/start.log")
         else
             docker start $container_id 2>&1 | tee "${SYNOPKG_PKGDEST}/package/logs/all.log" "${SYNOPKG_PKGDEST}/package/logs/start.log"
         fi
