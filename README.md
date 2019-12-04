@@ -16,6 +16,10 @@ updating...
 
 ## History
 
+## v1.3
++ integrate noVNC to remote server
++ add support for synology package
+
 ## v1.2
 + Write a Qt program to simulate tray
 + update megasync to 4.2.5
