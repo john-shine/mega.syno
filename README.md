@@ -11,7 +11,8 @@ then connect vnc desktop with vnc client at port 5901
 <img src="https://raw.githubusercontent.com/john-shine/mega.syno/master/screenshots/3.png" alt="screenshot2" />
 
 ## Synology tutorial
-updating...
+
+just download && install .spk package in release page
 
 ## History
 
