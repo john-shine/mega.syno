@@ -28,8 +28,9 @@ if [[ -d ${HOME}/MEGA ]]; then
         fi
         useradd -u $uid -d ${HOME} -g $gid -s /bin/bash -p ${USER} -r -N ${USER}
     fi
+fi
 
-
+if [[ $uid -ne 0 ]]; then
     chown -R $uid:$gid ${HOME}
 
     if [[ -z $vnc_password ]]; then
@@ -42,8 +43,10 @@ if [[ -d ${HOME}/MEGA ]]; then
         su - -p -c "/usr/bin/vncserver -geometry 1024x768 -fg" `id -un $uid`
     fi
 else
+    cp -r ${HOME}/.vnc /root/.vnc
+
     if [[ -z $vnc_password ]]; then
-        echo "${vnc_password}" | vncpasswd -f > ${HOME}/.vnc/passwd
+        echo "${vnc_password}" | vncpasswd -f > /root/.vnc/passwd
     fi
 
     if [[ -z $vnc_password ]]; then
