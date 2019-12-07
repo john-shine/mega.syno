@@ -16,6 +16,9 @@ just download && install .spk package in release page
 
 ## History
 
+## v1.4
++ fix duplicate copy folder when run in root user
+
 ## v1.3
 + integrate noVNC to remote server
 + add support for synology package

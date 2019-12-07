@@ -43,7 +43,15 @@ if [[ $uid -ne 0 ]]; then
         su - -p -c "/usr/bin/vncserver -geometry 1024x768 -fg" `id -un $uid`
     fi
 else
-    cp -r ${HOME}/.vnc /root/.vnc
+    if [[ ! -f "/root/.Xauthority" ]]; then
+        cp ${HOME}/.Xauthority /root/.Xauthority
+    fi
+    if [[ ! -d "/root/.vnc" ]]; then
+        cp -r ${HOME}/.vnc /root/.vnc
+    fi
+    if [[ ! -d "/root/.fluxbox" ]]; then
+        cp -r ${HOME}/.fluxbox /root/.fluxbox
+    fi
 
     if [[ -z $vnc_password ]]; then
         echo "${vnc_password}" | vncpasswd -f > /root/.vnc/passwd
