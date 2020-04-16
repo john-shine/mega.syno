@@ -54,7 +54,7 @@ else
     fi
 
     if [[ ! -z $vnc_password ]]; then
-        echo "${vnc_password}" | vncpasswd -f > /root/.vnc/passwd
+        echo "${vnc_password}" | vncpasswd -f > ${HOME}/.vnc/passwd
     fi
 
     if [[ -z $vnc_password ]]; then
