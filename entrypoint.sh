@@ -33,7 +33,7 @@ fi
 if [[ $uid -ne 0 ]]; then
     chown -R $uid:$gid ${HOME}
 
-    if [[ -z $vnc_password ]]; then
+    if [[ ! -z $vnc_password ]]; then
         su - -p -c "echo \"${vnc_password}\" | vncpasswd -f > ${HOME}/.vnc/passwd" `id -un $uid`
     fi
 
@@ -53,7 +53,7 @@ else
         cp -r ${HOME}/.fluxbox /root/.fluxbox
     fi
 
-    if [[ -z $vnc_password ]]; then
+    if [[ ! -z $vnc_password ]]; then
         echo "${vnc_password}" | vncpasswd -f > /root/.vnc/passwd
     fi
 

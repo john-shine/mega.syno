@@ -16,6 +16,9 @@ just download && install .spk package in release page
 
 ## History
 
+## v1.5
++ fix vnc password not works
+
 ## v1.4
 + fix duplicate copy folder when run in root user
 
