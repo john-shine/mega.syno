@@ -16,6 +16,9 @@ just download && install .spk package in release page
 
 ## History
 
+## v1.6
++ fix permission issue
+
 ## v1.5
 + fix vnc password not works
 
