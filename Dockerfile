@@ -41,6 +41,7 @@ ENTRYPOINT ["/entrypoint.sh"]
 
 RUN mkdir -p ${HOME}/.vnc/ ${HOME}/.fluxbox/
 ADD xstartup ${HOME}/.vnc/xstartup
+RUN chmod +rx ${HOME}/.vnc/xstartup
 
 RUN touch ${HOME}/.vnc/passwd ${HOME}/.Xauthority && \
     chmod 600 ${HOME}/.vnc/passwd
